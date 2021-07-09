@@ -106,10 +106,23 @@ const resetInput = () => {
 };
 
 // Clean a keyword to lowercase and without special characters
-// TODO: Make the cleaning
 const cleanedKeyword = (keyword) => {
-    const cleanedKeyword = keyword;
+    const keywordToArray = keyword.split('');
 
+    // Remove any char that is special from array
+    const sanitize = (x, arr) => {
+        const specialChars = ['/', '\\', '{', '}', '(', ')', '!', ',', ';', "'", '"', '?', '.', ':'];
+        const charIndex = arr.indexOf(x);
+        if (specialChars.includes(x)){
+            arr.splice(charIndex, 1);
+        } else {
+            return x
+        }
+    }
+    const saneArray = keywordToArray.map(x => sanitize(x, keywordToArray));
+    const woSpecialCharsKeyword = saneArray.join('');
+    
+    const cleanedKeyword = woSpecialCharsKeyword.toLowerCase();
     return cleanedKeyword;
 };
 
